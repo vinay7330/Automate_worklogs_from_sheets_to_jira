@@ -62,7 +62,7 @@ Create a file named `.env` in the root directory:
 
 ```
 JIRA_PAT=your_jira_personal_access_token_here
-SPREADSHEET_ID=your_google_sheet_id_here
+SPREADSHEET_ID=your_google_sheet_id_here   // Will be found in your sheet's URL
 ```
 
 3.3 Create and Activate Virtual Environment 
