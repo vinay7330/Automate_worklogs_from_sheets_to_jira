@@ -1,0 +1,5 @@
+venv
+credentials.json
+jira_privatekey.pem
+jira_publickey.pem
+.env
