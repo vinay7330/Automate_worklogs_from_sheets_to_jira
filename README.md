@@ -93,6 +93,6 @@ python3 main.py
 #Main func parameters :-
 parameter 1 :  Time sheet tab name like "July 2025"
 parameter 2 :  Starting column "alphabetic number" from where you want to start adding the work log which has been specified at the top like "A", "AE", "AI"
-parameter 3 :  Ending column "alphabetic number" till where you want to add the work log,
+parameter 3 :  Ending column "alphabetic number" till where you which column to add the work log,
 ~~
 
