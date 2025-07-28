@@ -7,10 +7,9 @@ import os
 
 load_dotenv()
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-JIRA_DOMAIN = "jira.jtg.tools"
 JIRA_PAT = os.getenv("JIRA_PAT")
 AUTH_TOKEN =os.getenv("AUTH_TOKEN")
-JIRA_API_URL = f"https://{JIRA_DOMAIN}/rest/api/2/issue/{{issue_key}}/worklog"
+JIRA_API_URL = f"https://{os.getenv("JIRA_DOMAIN")}/rest/api/2/issue/{{issue_key}}/worklog"
 
 def convert_to_hours(time_list):
     total = 0.0
