@@ -91,14 +91,16 @@ pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-pyt
 <img width="423" height="71" alt="image" src="https://github.com/user-attachments/assets/e4f63409-8c86-4d82-aef1-07a094167d96" />
 
 ```
-| Parameter      | Description                                                                                                       | Example       |
-| -------------- | ------------------------------------------------------------------------------------------------------------------| ------------- |
-| `tab_name`     | The **name of the sheet/tab** in the Google Sheet that contains your timesheet data                               | `"July 2025"` |
-| `start_column` | The **starting column letter** in the timesheet from where worklog entries should be added (shown in above img)   |     "A"       |
-| `end_column`   | The **ending column letter** in the timesheet until where worklog entries should be added                         |     "AE"      |
+| Parameter      | Description                                                                                                    |   Example     |
+| -------------- | ---------------------------------------------------------------------------------------------------------------| ------------- |
+| `tab_name`     | The "name of the sheet/tab" in the Google Sheet that contains your timesheet data                              | `"July 2025"` |
+| `start_column` | The "starting column letter" in the timesheet from where worklog entries should be added (shown in above img)  |     "A"       |
+| `end_column`   | The "ending column letter" in the timesheet until where worklog entries should be added                        |     "AE"      |
 ```
 ### 3.6 Run the script
 ```
 python3 main.py 
 ```
-
+## 🛡️ Note: This script is idempotent. This means you can run it multiple times without risk of duplicate entries. It will:
+- Skip already-added worklogs
+- Add only new or previously-missing entries
