@@ -61,8 +61,9 @@ project-root/
 Create a file named `.env` in the root directory:
 
 ```
-JIRA_PAT=your_jira_personal_access_token_here
-SPREADSHEET_ID=your_google_sheet_id_here   // Will be found in your sheet's URL
+JIRA_PAT = your_jira_personal_access_token_here
+SPREADSHEET_ID = your_google_sheet_id_here   // Will be found in your sheet's URL
+JIRA_DOMAIN =  your_jira_domain // like "jira.jtg.tools"
 ```
 
 3.3 Create and Activate Virtual Environment 
@@ -85,14 +86,35 @@ venv\Scripts\activate
 ```
 pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client requests python-dotenv
 ```
+3.5 Cross Verification before running script 
+```
+| Parameter      | Description                                                                                   | Example       |
+| -------------- | --------------------------------------------------------------------------------------------- | ------------- |
+| `tab_name`     | The **Google Sheet tab name** containing your timesheet data                                  | `"July 2025"` |
+| `start_column` | The **starting column letter** of the range containing worklog data                           | `"A"`         |
+| `end_column`   | The **ending column letter** to indicate the last column of your timesheet worklog data range | `"AE"`        |
 
+<img width="423" height="71" alt="image" src="https://github.com/user-attachments/assets/3d428652-0af9-42f7-a2b0-50e9b7435c73" />
+
+⚠️ Important Notes Before Running
+Before executing the script, carefully validate the time sheet range to avoid incorrect or duplicate worklog entries.
+
+✅ Requirements for Each Worklog Entry
+Make sure each relevant cell in the specified range contains:
+A valid Jira Ticket ID (e.g., QT-15500)
+A valid Time Spent value (e.g., 1.5, 0.5, 0.3)
+
+If either of these is missing in a cell, the script will skip that entry without error.
+⚠️ Once the script runs, it does not track what was already logged. If you rerun it without modifying your sheet:
+Valid rows will get logged again, resulting in duplicate worklogs in Jira.
+
+Skipped rows (due to missing data) will stay unlogged, and you’ll have to manually update Jira later.
+
+💡 Future Plan
+A check will be added to detect if the same worklog already exists to avoid duplicates. Until then, manually cross-verify your sheet before running the script.
+```
 3.5 Run the script
 ```
-python3 main.py
-
-#Main func parameters :-
-parameter 1 :  Time sheet tab name like "July 2025"
-parameter 2 :  Starting column "alphabetic number" from where you want to start adding the work log which has been specified at the top like "A", "AE", "AI"
-parameter 3 :  Ending column "alphabetic number" till where you which column to add the work log,
+python3 main.py 
 ~~
 
