@@ -4,9 +4,9 @@ Automate posting worklogs to Jira from a structured Google Sheet using Python an
 
 ## ✅ Prerequisites
 
-- Jira Server/Data Center with API access and a Personal Access Token (PAT)
+- Jira account Personal Access Token (PAT)
 - Google account with access to the target Google Sheet
-- Should be connected to JTG's VPN
+- Should be connected to JTG's VPN (I outside office)
 
 ---
 
@@ -61,11 +61,12 @@ project-root/
 Create a file named `.env` in the root directory:
 
 ```
-JIRA_PAT=your_jira_personal_access_token_here
-SPREADSHEET_ID=your_google_sheet_id_here   // Will be found in your sheet's URL
+JIRA_PAT = your_jira_personal_access_token_here
+SPREADSHEET_ID = your_google_sheet_id_here   // Will be found in your sheet's URL
+JIRA_DOMAIN =  your_jira_domain // like "jira.jtg.tools"
 ```
 
-3.3 Create and Activate Virtual Environment 
+### 3.3 Create and Activate Virtual Environment 
 # Create a virtual environment
 ```
 python3 -m venv venv
@@ -81,18 +82,43 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
-3.4 Install Dependencies
+### 3.4 Install Dependencies
 ```
 pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client requests python-dotenv
 ```
+### 3.5 Cross Verification before running script 
 
-3.5 Run the script
+<img width="423" height="71" alt="image" src="https://github.com/user-attachments/assets/e4f63409-8c86-4d82-aef1-07a094167d96" />
+
 ```
-python3 main.py
+| Parameter      | Description                                                                                                       | Example       |
+| -------------- | ------------------------------------------------------------------------------------------------------------------| ------------- |
+| `tab_name`     | The **name of the sheet/tab** in the Google Sheet that contains your timesheet data                               | `"July 2025"` |
+| `start_column` | The **starting column letter** in the timesheet from where worklog entries should be added (shown in above img)   |     "A"       |
+| `end_column`   | The **ending column letter** in the timesheet until where worklog entries should be added                         |     "AE"      |
 
-#Main func parameters :-
-parameter 1 :  Time sheet tab name like "July 2025"
-parameter 2 :  Starting column "alphabetic number" from where you want to start adding the work log which has been specified at the top like "A", "AE", "AI"
-parameter 3 :  Ending column "alphabetic number" till where you want to add the work log,
-~~
+
+
+⚠️ Important Notes Before Running
+Before executing the script, carefully validate the time sheet range to avoid incorrect or duplicate worklog entries.
+
+✅ Requirements for Each Worklog Entry
+Make sure each relevant cell in the specified range contains:
+A valid Jira Ticket ID (e.g., QT-15500)
+A valid Time Spent value (e.g., 1.5, 0.5, 0.3)
+
+If either of these is missing in a cell, the script will skip that entry without error.
+⚠️ Once the script runs, it does not track what was already logged. If you rerun it without modifying your sheet:
+Valid rows will get logged again, resulting in duplicate worklogs in Jira.
+
+Skipped rows (due to missing data) will stay unlogged, and you’ll have to manually update Jira later.
+
+💡 Future Plan
+A check will be added to detect if the same worklog already exists to avoid duplicates.
+Until then, manually cross-verify your sheet before running the script.
+```
+### 3.6 Run the script
+```
+python3 main.py 
+```
 
