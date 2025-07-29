@@ -6,7 +6,7 @@ Automate posting worklogs to Jira from a structured Google Sheet using Python an
 
 - Jira account Personal Access Token (PAT)
 - Google account with access to the target Google Sheet
-- Should be connected to JTG's VPN
+- Should be connected to JTG's VPN (I outside office)
 
 ---
 
@@ -114,7 +114,8 @@ Valid rows will get logged again, resulting in duplicate worklogs in Jira.
 Skipped rows (due to missing data) will stay unlogged, and you’ll have to manually update Jira later.
 
 💡 Future Plan
-A check will be added to detect if the same worklog already exists to avoid duplicates. Until then, manually cross-verify your sheet before running the script.
+A check will be added to detect if the same worklog already exists to avoid duplicates.
+Until then, manually cross-verify your sheet before running the script.
 ```
 3.5 Run the script
 ```
