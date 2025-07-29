@@ -94,8 +94,8 @@ pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-pyt
 | Parameter      | Description                                                                                                       | Example       |
 | -------------- | ------------------------------------------------------------------------------------------------------------------| ------------- |
 | `tab_name`     | The **name of the sheet/tab** in the Google Sheet that contains your timesheet data                               | `"July 2025"` |
-| `start_column` | The **starting column letter** in the timesheet from where worklog entries should be added (shown in above img)   | `"A"`         |
-| `end_column`   | The **ending column letter** in the timesheet until where worklog entries should be added                         | `"AE"`        |
+| `start_column` | The **starting column letter** in the timesheet from where worklog entries should be added (shown in above img)   |     "A"       |
+| `end_column`   | The **ending column letter** in the timesheet until where worklog entries should be added                         |     "AE"      |
 
 
 
