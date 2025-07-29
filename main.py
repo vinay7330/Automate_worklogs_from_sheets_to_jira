@@ -8,7 +8,8 @@ import os
 load_dotenv()
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 JIRA_PAT = os.getenv("JIRA_PAT")
-JIRA_API_URL = f"https://{os.getenv("JIRA_DOMAIN")}/rest/api/2/issue/{{issue_key}}/worklog"
+JIRA_DOMAIN = os.getenv("JIRA_DOMAIN")
+JIRA_API_URL = f"https://{JIRA_DOMAIN}/rest/api/2/issue/{{issue_key}}/worklog"
 
 def convert_to_hours(time_list):
     total = 0.0
@@ -33,6 +34,9 @@ def format_time_spent(hours):
         return f"{h}h"
     else:
         return f"{m}m"
+
+def normalize_comment(comment):
+    return ''.join(ch for ch in comment.lower() if ch.isalnum())
 
 
 def post_worklog(issue_key, started, time_spent, comment):
@@ -68,6 +72,24 @@ def col_letter_to_index(col_letter):
         index = index * 26 + (ord(c) - ord('A') + 1)
     return index - 1
 
+def fetch_existing_worklogs(issue_key):
+    url = f"https://{JIRA_DOMAIN}/rest/api/2/issue/{issue_key}/worklog"
+    headers = {
+        "Authorization": f"Bearer {JIRA_PAT}",
+        "Accept": "application/json"
+    }
+    resp = requests.get(url, headers=headers)
+    if resp.status_code != 200:
+        print(f"Failed to fetch worklogs for issue {issue_key}, status: {resp.status_code}")
+        return []
+    data = resp.json()
+    worklogs_comments = []
+    for w in data.get("worklogs", []):
+        comment = w.get("comment")
+        if comment:
+            worklogs_comments.append(normalize_comment(comment))
+    return worklogs_comments
+
 def main(tab_name, start_col_letter, end_col_letter):
     start_index = col_letter_to_index(start_col_letter)
     end_index = col_letter_to_index(end_col_letter)
@@ -95,16 +117,30 @@ def main(tab_name, start_col_letter, end_col_letter):
         print("No data found.")
         return
 
+    worklogs_cache = {}
     for idx, row in enumerate(values, start=7):
         if not has_time_in_columns(row, start_index, end_index):
             continue
 
-        issue_key = row[5]  
-        comment = row[8] 
+        issue_key = row[5].strip() if len(row) > 5 else ""
+        comment = row[8].strip() if len(row) > 8 else ""
+        normalized_comment = normalize_comment(comment)
         time_cells = row[start_index:end_index + 1] 
         total_hours = convert_to_hours(time_cells)
 
         if total_hours == 0:
+            print(f"Row {idx}: Skipping because total_hours is 0.")
+            continue
+
+        if comment == "":
+            print(f"Row {idx}: Skipping because description is empty.")
+            continue
+
+        if issue_key not in worklogs_cache:
+            worklogs_cache[issue_key] = fetch_existing_worklogs(issue_key)
+
+        if normalized_comment in worklogs_cache[issue_key]:
+            print(f"Row {idx}: This Comment already exists for issue {issue_key}, skipping.")
             continue
 
         started_dt = format_started_datetime()
@@ -115,8 +151,9 @@ def main(tab_name, start_col_letter, end_col_letter):
         response = post_worklog(issue_key, started_dt, time_spent_str, comment)
         if response.status_code == 201:
             print(f"Row {idx}: Worklog added successfully.")
+            worklogs_cache[issue_key].append(normalized_comment)
         else:
             print(f"Row {idx}: Failed to add worklog - Status {response.status_code}, Response: {response.text}")
 
 if __name__ == "__main__":
-    main("July 2025","AAA", "AAAA")
+    main("July 2025","AH", "AH")
