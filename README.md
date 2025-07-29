@@ -96,26 +96,6 @@ pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-pyt
 | `tab_name`     | The **name of the sheet/tab** in the Google Sheet that contains your timesheet data                               | `"July 2025"` |
 | `start_column` | The **starting column letter** in the timesheet from where worklog entries should be added (shown in above img)   |     "A"       |
 | `end_column`   | The **ending column letter** in the timesheet until where worklog entries should be added                         |     "AE"      |
-
-
-
-⚠️ Important Notes Before Running
-Before executing the script, carefully validate the time sheet range to avoid incorrect or duplicate worklog entries.
-
-✅ Requirements for Each Worklog Entry
-Make sure each relevant cell in the specified range contains:
-A valid Jira Ticket ID (e.g., QT-15500)
-A valid Time Spent value (e.g., 1.5, 0.5, 0.3)
-
-If either of these is missing in a cell, the script will skip that entry without error.
-⚠️ Once the script runs, it does not track what was already logged. If you rerun it without modifying your sheet:
-Valid rows will get logged again, resulting in duplicate worklogs in Jira.
-
-Skipped rows (due to missing data) will stay unlogged, and you’ll have to manually update Jira later.
-
-💡 Future Plan
-A check will be added to detect if the same worklog already exists to avoid duplicates.
-Until then, manually cross-verify your sheet before running the script.
 ```
 ### 3.6 Run the script
 ```
