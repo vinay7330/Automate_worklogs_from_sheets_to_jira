@@ -87,14 +87,17 @@ venv\Scripts\activate
 pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client requests python-dotenv
 ```
 3.5 Cross Verification before running script 
-```
-| Parameter      | Description                                                                                   | Example       |
-| -------------- | --------------------------------------------------------------------------------------------- | ------------- |
-| `tab_name`     | The **Google Sheet tab name** containing your timesheet data                                  | `"July 2025"` |
-| `start_column` | The **starting column letter** of the range containing worklog data                           | `"A"`         |
-| `end_column`   | The **ending column letter** to indicate the last column of your timesheet worklog data range | `"AE"`        |
 
-<img width="423" height="71" alt="image" src="https://github.com/user-attachments/assets/3d428652-0af9-42f7-a2b0-50e9b7435c73" />
+<img width="423" height="71" alt="image" src="https://github.com/user-attachments/assets/e4f63409-8c86-4d82-aef1-07a094167d96" />
+
+```
+| Parameter      | Description                                                                                                       | Example       |
+| -------------- | ------------------------------------------------------------------------------------------------------------------| ------------- |
+| `tab_name`     | The **name of the sheet/tab** in the Google Sheet that contains your timesheet data                               | `"July 2025"` |
+| `start_column` | The **starting column letter** in the timesheet from where worklog entries should be added (shown in above img)   | `"A"`         |
+| `end_column`   | The **ending column letter** in the timesheet until where worklog entries should be added                         | `"AE"`        |
+
+
 
 ⚠️ Important Notes Before Running
 Before executing the script, carefully validate the time sheet range to avoid incorrect or duplicate worklog entries.
@@ -116,5 +119,5 @@ A check will be added to detect if the same worklog already exists to avoid dupl
 3.5 Run the script
 ```
 python3 main.py 
-~~
+```
 
