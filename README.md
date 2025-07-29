@@ -66,7 +66,7 @@ SPREADSHEET_ID = your_google_sheet_id_here   // Will be found in your sheet's UR
 JIRA_DOMAIN =  your_jira_domain // like "jira.jtg.tools"
 ```
 
-3.3 Create and Activate Virtual Environment 
+### 3.3 Create and Activate Virtual Environment 
 # Create a virtual environment
 ```
 python3 -m venv venv
@@ -82,11 +82,11 @@ source venv/bin/activate
 venv\Scripts\activate
 ```
 
-3.4 Install Dependencies
+### 3.4 Install Dependencies
 ```
 pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client requests python-dotenv
 ```
-3.5 Cross Verification before running script 
+### 3.5 Cross Verification before running script 
 
 <img width="423" height="71" alt="image" src="https://github.com/user-attachments/assets/e4f63409-8c86-4d82-aef1-07a094167d96" />
 
@@ -117,7 +117,7 @@ Skipped rows (due to missing data) will stay unlogged, and you’ll have to manu
 A check will be added to detect if the same worklog already exists to avoid duplicates.
 Until then, manually cross-verify your sheet before running the script.
 ```
-3.5 Run the script
+### 3.5 Run the script
 ```
 python3 main.py 
 ```
