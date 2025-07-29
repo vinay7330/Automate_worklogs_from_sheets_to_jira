@@ -117,7 +117,7 @@ Skipped rows (due to missing data) will stay unlogged, and you’ll have to manu
 A check will be added to detect if the same worklog already exists to avoid duplicates.
 Until then, manually cross-verify your sheet before running the script.
 ```
-### 3.5 Run the script
+### 3.6 Run the script
 ```
 python3 main.py 
 ```
