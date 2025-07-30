@@ -3,7 +3,7 @@
 Automate posting worklogs to Jira from a structured Google Sheet using Python and the Google Sheets API.
 
 ## ✅ Prerequisites
-
+- Python3 should be installed in the machine
 - Jira account Personal Access Token (PAT)
 - Google account with access to the target Google Sheet
 - Should be connected to JTG's VPN (I outside office)
