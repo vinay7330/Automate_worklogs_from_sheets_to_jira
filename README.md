@@ -105,7 +105,7 @@ pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-pyt
 - Skip already-added worklogs
 - Add only new or previously-missing entries ( So need not to worry 😉 )
   
-### 3.6 Run the script
+### 3.6 Run the script & Authorize the application
 ```
 python3 main.py 
 ```
