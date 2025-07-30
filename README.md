@@ -8,6 +8,10 @@ Automate posting worklogs to Jira from a structured Google Sheet using Python an
 - Google account with access to the target Google Sheet
 - Should be connected to JTG's VPN (I outside office)
 
+## Clone this repository to local machine
+```
+git clone https://github.com/vinay7330/Automate_worklogs_from_sheets_to_jira.git
+```
 ---
 
 ## 🔧 Step 1: Google Cloud Setup for Sheets API
@@ -97,10 +101,11 @@ pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-pyt
 | `start_column` | The "starting column letter" in the timesheet from where worklog entries should be added (shown in above img)  |     "A"       |
 | `end_column`   | The "ending column letter" in the timesheet until where worklog entries should be added                        |     "AE"      |
 ```
+### 🛡️ Note: This script is idempotent. This means you can run it multiple times without risk of duplicate entries. It will:
+- Skip already-added worklogs
+- Add only new or previously-missing entries ( So need not to worry 😉 )
+  
 ### 3.6 Run the script
 ```
 python3 main.py 
 ```
-## 🛡️ Note: This script is idempotent. This means you can run it multiple times without risk of duplicate entries. It will:
-- Skip already-added worklogs
-- Add only new or previously-missing entries
